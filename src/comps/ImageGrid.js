@@ -1,6 +1,8 @@
 import React from "react";
 import useFirestore from "../hooks/useFirestore";
-const ImageGrid = ({ file }) => {
+import { motion } from "framer-motion";
+
+const ImageGrid = ({ file, setSelectedImg }) => {
   console.log("hi");
   const { items } = useFirestore("images", file);
   console.log(items);
@@ -8,9 +10,21 @@ const ImageGrid = ({ file }) => {
     <div className="img-grid">
       {items &&
         items.map((item) => (
-          <div className="img-wrap" key={item.id}>
-            <img src={item.downloadURL} alt="uploaded pic" />
-          </div>
+          <motion.div
+            className="img-wrap"
+            key={item.id}
+            onClick={() => setSelectedImg(item.downloadURL)}
+            layout
+            whileHover={{ opacity: 1 }}
+          >
+            <motion.img
+              src={item.downloadURL}
+              alt="uploaded pic"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            />
+          </motion.div>
         ))}
     </div>
   );

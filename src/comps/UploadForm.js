@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import ImageGrid from "./ImageGrid";
+import Modal from "./Modal";
 import ProgressBar from "./ProgressBar";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
+
+  const [selectedImg, setSelectedImg] = useState(null);
 
   const types = ["image/png", "image/jpeg", "image/jpg"];
 
@@ -32,7 +35,8 @@ const UploadForm = () => {
           {file && <ProgressBar file={file} setFile={setFile} />}
         </div>
       </form>
-      <ImageGrid file={file} />
+      <ImageGrid file={file} setSelectedImg={setSelectedImg}/>
+      { selectedImg && <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg}/>}
     </>
   );
 };
